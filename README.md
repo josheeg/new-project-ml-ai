@@ -19,7 +19,7 @@ torchaudio = { index = "pytorch-cpu" }
 "@ | Out-File -FilePath pyproject.toml -Append -Encoding utf8
 
 # 2. Development, Quality & Testing
-uv add --dev `
+uv add  `
   ruff `
   mypy `
   pytest `
