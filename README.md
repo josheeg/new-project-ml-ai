@@ -1,56 +1,70 @@
 # new-project-ml-ai
+# 1. Initialize Repository & Environment
 git init
-
-uv init --no-workspace
+uv init --app
 uv venv
 
-uv add ruff mypy pytest pytest-cov pytest-asyncio pyinstaller pydantic python-dotenv build twine python-dotenv coverage hatchling mkdocs mkdocs-material sphinx sphinx-rtd-theme sphinx-autodoc-typehints setuptools httpx pandas hatchling flit-core
+# Add PyTorch CPU index to pyproject.toml
+@"
 
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
-# Core Data Science & Wrangling
-uv add pandas numpy scipy polars
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+torchaudio = { index = "pytorch-cpu" }
+"@ | Out-File -FilePath pyproject.toml -Append -Encoding utf8
 
-# Visualization
-uv add matplotlib seaborn plotly
+# 2. Development, Quality & Testing
+uv add --dev `
+  ruff `
+  mypy `
+  pytest `
+  pytest-cov `
+  pytest-asyncio `
+  pytest-mock `
+  pytest-xdist `
+  coverage `
+  pyinstaller `
+  pre-commit `
+  towncrier `
+  mkdocs `
+  mkdocs-material
 
-# Modern Forecasting & Time Series Models
-uv add statsmodels prophet neuralforecast darts sktime pmdarima lightgbm xgboost catboost
+# 3. Core Data Science, Storage & Utilities
+uv add `
+  pandas `
+  polars `
+  scipy `
+  matplotlib `
+  httpx `
+  python-dotenv `
+  papermill `
+  pydantic
 
-# Development Tools & Notebook Support
-uv add --dev jupyter ipykernel notebook
+# 4. Classical ML & Time Series
+uv add `
+  scikit-learn `
+  xgboost `
+  catboost `
+  statsmodels `
+  sktime `
+  pmdarima `
+  prophet
 
+# 5. Deep Learning Frameworks (CPU-Optimized)
+uv add torch torchvision torchaudio
+uv add tensorflow jax jaxlib
 
-# cpu
+# 6. LLMs, RAG & LLM Tooling
+uv add `
+  anthropic `
+  guidance
 
-uv add tensorflow-cpu
+# 7. Gitignore & BMAD Method Setup
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore" -OutFile ".gitignore"
 
-uv add torch --index-url https://download.pytorch.org/whl/cpu
-
-# LLMs, RAG & Orchestration
-uv add langchain langchain-community llama-index openai anthropic guidance instructor
-
-# Local Models & Hugging Face Stack
-uv add transformers datasets accelerate diffusers sentence-transformers huggingface-hub
-
-# Classical ML & AI Foundations
-uv add scikit-learn numpy scipy pandas matplotlib
-
-# Deep Learning Frameworks (Pick what you need)
-uv add torch torchvision torchaudio                      # PyTorch
-uv add tensorflow-cpu                                    # TensorFlow (CPU)
-uv add jax jaxlib                                         # JAX
-
-# Fine-Tuning & Model Optimization
-uv add peft trl bitsandbytes vllm
-
-uv add langchain langchain-community llama-index openai anthropic transformers sentence-transformers
-
-uv add torch transformers datasets accelerate diffusers sentence-transformers peft
-
-uv add scikit-learn pandas numpy matplotlib transformers torch openai
-
-npx gitignore python
-
-npx skills add bmad-code-org/BMAD-METHOD
-
-bmad setup
+Write-Host "Setup complete. Run 'npx bmad-method init' interactively to finish setting up BMAD Method."
