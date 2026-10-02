@@ -19,7 +19,7 @@ torchaudio = { index = "pytorch-cpu" }
 "@ | Out-File -FilePath pyproject.toml -Append -Encoding utf8
 
 # 2. Development, Quality & Testing
-uv add  `
+uv add --dev `
   ruff `
   mypy `
   pytest `
@@ -68,3 +68,5 @@ uv add `
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore" -OutFile ".gitignore"
 
 Write-Host "Setup complete. Run 'npx bmad-method init' interactively to finish setting up BMAD Method."
+
+npx skills add bmad-code-org/BMAD-METHOD
