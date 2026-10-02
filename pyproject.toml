@@ -1,0 +1,25 @@
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+torchaudio = { index = "pytorch-cpu" }
+
+[dependency-groups]
+dev = [
+    "coverage>=7.16.2",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.7",
+    "mypy>=2.4.0",
+    "pre-commit>=4.6.2",
+    "pyinstaller>=6.22.3",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "pytest-mock>=3.16.0",
+    "pytest-xdist>=3.8.0",
+    "ruff>=0.16.10",
+    "towncrier>=26.9.0",
+]
